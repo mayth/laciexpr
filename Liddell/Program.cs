@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Laciexpr;
 
@@ -11,15 +12,19 @@ namespace liddell
             string line;
             while ((line = Console.ReadLine()) != null)
             {
+                IEnumerable<Token> tokens;
                 try
                 {
-                    var tokens = Tokenizer.Tokenize(new System.IO.StringReader(line));
+                    tokens = Tokenizer.Tokenize(new System.IO.StringReader(line)).ToList();
                     Console.WriteLine("--> " + string.Join(" ", tokens));
                 }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine("!!> " + e.Message);
+                    continue;
                 }
+                var node = Parser.Parse(tokens);
+                Console.WriteLine("--> " + node.Evaluate());
             }
         }
     }

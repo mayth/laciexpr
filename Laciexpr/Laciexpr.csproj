@@ -44,6 +44,7 @@
     <Compile Include="Node\Unary\PositiveNode.cs" />
     <Compile Include="Node\Unary\NegativeNode.cs" />
     <Compile Include="Node\NumberNode.cs" />
+    <Compile Include="Parser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
