@@ -15,6 +15,11 @@ namespace Laciexpr
         {
             return value;
         }
+
+        public override string ToString()
+        {
+            return string.Format("(Val {0})", value);
+        }
     }
 }
 

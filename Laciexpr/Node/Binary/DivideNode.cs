@@ -17,6 +17,11 @@ namespace Laciexpr
         {
             return left.Evaluate() / right.Evaluate();
         }
+
+        public override string ToString()
+        {
+            return string.Format("(Div {0} {1})", left.ToString(), right.ToString());
+        }
     }
 }
 

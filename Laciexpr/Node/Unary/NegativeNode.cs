@@ -15,6 +15,11 @@ namespace Laciexpr
         {
             return -node.Evaluate();
         }
+
+        public override string ToString()
+        {
+            return string.Format("(Neg {0})", node.ToString());
+        }
     }
 }
 

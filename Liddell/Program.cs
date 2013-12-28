@@ -13,6 +13,7 @@ namespace liddell
             while ((line = Console.ReadLine()) != null)
             {
                 IEnumerable<Token> tokens;
+                Node root;
                 try
                 {
                     tokens = Tokenizer.Tokenize(new System.IO.StringReader(line)).ToList();
@@ -20,11 +21,19 @@ namespace liddell
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine("!!> " + e.Message);
+                    Console.Error.WriteLine("!!> TOKENIZE FAILED: " + e.Message);
                     continue;
                 }
-                var node = Parser.Parse(tokens);
-                Console.WriteLine("--> " + node.Evaluate());
+                try
+                {
+                    root = Parser.Parse(tokens);
+                    Console.WriteLine("--> " + root.ToString());
+                    Console.WriteLine("==> " + root.Evaluate());
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine("!!> PARSE FAILED:" + e.Message);
+                }
             }
         }
     }
