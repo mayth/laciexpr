@@ -36,6 +36,19 @@
     <Compile Include="Token.cs" />
     <Compile Include="TokenType.cs" />
     <Compile Include="Tokenizer.cs" />
+    <Compile Include="Node\Node.cs" />
+    <Compile Include="Node\Binary\AddNode.cs" />
+    <Compile Include="Node\Binary\SubtractNode.cs" />
+    <Compile Include="Node\Binary\DivideNode.cs" />
+    <Compile Include="Node\Binary\MultiplyNode.cs" />
+    <Compile Include="Node\Unary\PositiveNode.cs" />
+    <Compile Include="Node\Unary\NegativeNode.cs" />
+    <Compile Include="Node\NumberNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Node\" />
+    <Folder Include="Node\Unary\" />
+    <Folder Include="Node\Binary\" />
+  </ItemGroup>
 </Project>
