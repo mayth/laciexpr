@@ -16,7 +16,7 @@ namespace liddell
                 Node root;
                 try
                 {
-                    tokens = Tokenizer.Tokenize(new System.IO.StringReader(line)).ToList();
+                    tokens = Tokenizer.Tokenize(new System.IO.StringReader(line)).ToList(); // do not lazy!
                     Console.WriteLine("--> " + string.Join(" ", tokens));
                 }
                 catch (Exception e)
