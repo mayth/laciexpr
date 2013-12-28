@@ -27,8 +27,22 @@ namespace Laciexpr
 
         private Node ReadExpression()
         {
-            // expr = <term> (("+"|"-") <term>)*
-            var node = ReadTerm();
+            Node node;
+            // expr = ("+"|"-")? <term> (("+"|"-") <term>)*
+            switch (iter.Current.Type)
+            {
+                case TokenType.Plus:
+                    iter.MoveNext();
+                    node = new PositiveNode(ReadTerm());
+                    break;
+                case TokenType.Minus:
+                    iter.MoveNext();
+                    node = new NegativeNode(ReadTerm());
+                    break;
+                default:
+                    node = ReadTerm();
+                    break;
+            }
             while (iter.Current.Type == TokenType.Plus || iter.Current.Type == TokenType.Minus)
             {
                 var op = iter.Current.Type;
@@ -75,7 +89,7 @@ namespace Laciexpr
 
         private Node ReadFactor()
         {
-            // factor = number | "(" <expr> ")" | ("+"|"-") <expr>
+            // factor = number | "(" <expr> ")"
             switch (iter.Current.Type)
             {
                 case TokenType.Plus:
