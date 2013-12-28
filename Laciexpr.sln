@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laciexpr", "Laciexpr\Laciexpr.csproj", "{2884F554-B2F3-427D-AD4B-E35EF4E5712D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liddell", "Liddell\Liddell.csproj", "{DB96E04D-1147-44F7-A81F-A289FE12E77B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laciexpr", "Laciexpr\Laciexpr.csproj", "{A9AD13DE-31CD-42C7-94B8-4F068B63C90A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2884F554-B2F3-427D-AD4B-E35EF4E5712D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2884F554-B2F3-427D-AD4B-E35EF4E5712D}.Debug|x86.Build.0 = Debug|Any CPU
-		{2884F554-B2F3-427D-AD4B-E35EF4E5712D}.Release|x86.ActiveCfg = Release|Any CPU
-		{2884F554-B2F3-427D-AD4B-E35EF4E5712D}.Release|x86.Build.0 = Release|Any CPU
+		{A9AD13DE-31CD-42C7-94B8-4F068B63C90A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A9AD13DE-31CD-42C7-94B8-4F068B63C90A}.Debug|x86.Build.0 = Debug|Any CPU
+		{A9AD13DE-31CD-42C7-94B8-4F068B63C90A}.Release|x86.ActiveCfg = Release|Any CPU
+		{A9AD13DE-31CD-42C7-94B8-4F068B63C90A}.Release|x86.Build.0 = Release|Any CPU
 		{DB96E04D-1147-44F7-A81F-A289FE12E77B}.Debug|x86.ActiveCfg = Debug|x86
 		{DB96E04D-1147-44F7-A81F-A289FE12E77B}.Debug|x86.Build.0 = Debug|x86
 		{DB96E04D-1147-44F7-A81F-A289FE12E77B}.Release|x86.ActiveCfg = Release|x86
