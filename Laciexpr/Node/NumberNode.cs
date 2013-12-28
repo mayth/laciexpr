@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Laciexpr
 {
@@ -14,6 +15,11 @@ namespace Laciexpr
         public override int Evaluate()
         {
             return value;
+        }
+
+        public override void Emit(IList<Code> codes)
+        {
+            codes.Add(new Code(OpCode.Push, value));
         }
 
         public override string ToString()

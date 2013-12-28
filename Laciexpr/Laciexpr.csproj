@@ -45,11 +45,15 @@
     <Compile Include="Node\Unary\NegativeNode.cs" />
     <Compile Include="Node\NumberNode.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="CodeGenerator\Code.cs" />
+    <Compile Include="CodeGenerator\Generator.cs" />
+    <Compile Include="CodeGenerator\OpCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Node\" />
     <Folder Include="Node\Unary\" />
     <Folder Include="Node\Binary\" />
+    <Folder Include="CodeGenerator\" />
   </ItemGroup>
 </Project>

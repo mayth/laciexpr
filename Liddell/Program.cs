@@ -14,6 +14,7 @@ namespace liddell
             {
                 IEnumerable<Token> tokens;
                 Node root;
+
                 try
                 {
                     tokens = Tokenizer.Tokenize(new System.IO.StringReader(line)).ToList(); // do not lazy!
@@ -24,15 +25,29 @@ namespace liddell
                     Console.Error.WriteLine("!!> TOKENIZE FAILED: " + e.Message);
                     continue;
                 }
+
                 try
                 {
                     root = Parser.Parse(tokens);
-                    Console.WriteLine("--> " + root.ToString());
-                    Console.WriteLine("==> " + root.Evaluate());
+                    Console.WriteLine("--> Tree:  " + root.ToString());
+                    Console.WriteLine("--> Value: " + root.Evaluate());
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine("!!> PARSE FAILED:" + e.Message);
+                    Console.Error.WriteLine("!!> PARSE FAILED: " + e.Message);
+                    continue;
+                }
+
+                try
+                {
+                    var codes = root.Emit(true);
+                    var cCode = Generator.Generate(codes, 64);
+                    System.IO.File.WriteAllText("output.c", cCode);
+                    Console.WriteLine("--> Wrote C code to 'output.c'.");
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine("!!> COMPILE FAILED: " + e.Message);
                 }
             }
         }
