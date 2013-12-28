@@ -57,7 +57,7 @@ namespace Laciexpr
                 case ')':
                     return new Token(TokenType.RightParen);
                 default:
-                    throw new ArgumentException("Invalid character ('" + c + "')");
+                    throw new ArgumentException(string.Format("Invalid character (U+{0:X4} '{1}')", (int)c, c));
             }
         }
     }
