@@ -40,7 +40,8 @@ namespace liddell
 
                 try
                 {
-                    var codes = root.Emit(true);
+                    var codes = new List<Code>(root.Emit());
+                    codes.Add(new Code(OpCode.Print));
                     var cCode = Generator.Generate(codes, 64);
                     System.IO.File.WriteAllText("output.c", cCode);
                     Console.WriteLine("--> Wrote C code to 'output.c'.");

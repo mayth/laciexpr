@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Laciexpr
 {
@@ -9,14 +10,10 @@ namespace Laciexpr
         abstract public void Emit(IList<Code> codes);
         abstract public override string ToString();
 
-        public IEnumerable<Code> Emit(bool appendPrint)
+        public IEnumerable<Code> Emit()
         {
             var codes = new List<Code>();
             Emit(codes);
-            if (appendPrint)
-            {
-                codes.Add(new Code(OpCode.Print));
-            }
             return codes;
         }
     }
