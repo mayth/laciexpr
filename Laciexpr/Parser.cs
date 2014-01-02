@@ -50,7 +50,7 @@ namespace Laciexpr
             {
                 var op = Current.Type;
                 if (!iter.MoveNext())
-                    throw new Exception("Syntax Error (An operator (for an expression) must have an operand.)");
+                    throw new InvalidSyntaxException("An operator (for an expression) must have an operand");
 
                 var right = ReadTerm();
                 if (op == TokenType.Plus)
@@ -75,7 +75,7 @@ namespace Laciexpr
             {
                 var op = Current.Type;
                 if (!iter.MoveNext())
-                    throw new Exception("Syntax Error (An operator (for a term) must have an operand.)");
+                    throw new InvalidSyntaxException("An operator (for a term) must have an operand.");
 
                 var right = ReadFactor();
                 if (op == TokenType.Asterisk)
@@ -98,13 +98,13 @@ namespace Laciexpr
                 case TokenType.Plus:
                     {
                         if (!iter.MoveNext())
-                            throw new Exception("Syntax Error (An unary operator \"+\" must have an operand.)");
+                            throw new InvalidSyntaxException("An unary operator \"+\" must have an operand");
                         return new PositiveNode(ReadFactor());
                     }
                 case TokenType.Minus:
                     {
                         if (!iter.MoveNext())
-                            throw new Exception("Syntax Error (An unary operator \"-\" must have an operand.)");
+                            throw new InvalidSyntaxException("An unary operator \"-\" must have an operand");
                         return new NegativeNode(ReadFactor());
                     }
                 case TokenType.Number:
@@ -116,11 +116,11 @@ namespace Laciexpr
                 case TokenType.LeftParen:
                     {
                         if (!iter.MoveNext())
-                            throw new Exception("Syntax Error (Unbalanced parenthesis.)");
+                            throw new InvalidSyntaxException("Unbalanced parenthesis");
                         var node = ReadExpression();
                         if (Current.Type != TokenType.RightParen)
                         {
-                            throw new Exception("Syntax Error (Unbalanced parenthesis.)");
+                            throw new InvalidSyntaxException("Unbalanced parenthesis");
                         }
                         iter.MoveNext();
                         return node;

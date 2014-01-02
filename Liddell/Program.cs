@@ -32,6 +32,11 @@ namespace liddell
                     Console.WriteLine("--> Tree:  " + root.ToString());
                     Console.WriteLine("--> Value: " + root.Evaluate());
                 }
+                catch (InvalidSyntaxException e)
+                {
+                    Console.Error.WriteLine("!!> SYNTAX ERROR: " + e.Message);
+                    continue;
+                }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine("!!> PARSE FAILED: " + e.Message);

@@ -48,6 +48,7 @@
     <Compile Include="CodeGenerator\Code.cs" />
     <Compile Include="CodeGenerator\Generator.cs" />
     <Compile Include="CodeGenerator\OpCode.cs" />
+    <Compile Include="InvalidSyntaxException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
