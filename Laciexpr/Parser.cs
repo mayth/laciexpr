@@ -8,6 +8,17 @@ namespace Laciexpr
     {
         private IEnumerator<Token> iter;
 
+        private Token Current
+        {
+            get
+            {
+                // Contract.Requires<InvalidOperationException>(iter != null);
+                if (iter == null)
+                    throw new InvalidOperationException("Enumerator is not available.");
+                return iter.Current;
+            }
+        }
+
         private Parser(IEnumerator<Token> iter)
         {
             this.iter = iter;
@@ -29,7 +40,7 @@ namespace Laciexpr
         {
             Node node;
             // expr = ("+"|"-")? <term> (("+"|"-") <term>)*
-            switch (iter.Current.Type)
+            switch (Current.Type)
             {
                 case TokenType.Plus:
                     iter.MoveNext();
@@ -43,9 +54,9 @@ namespace Laciexpr
                     node = ReadTerm();
                     break;
             }
-            while (iter.Current.Type == TokenType.Plus || iter.Current.Type == TokenType.Minus)
+            while (Current.Type == TokenType.Plus || Current.Type == TokenType.Minus)
             {
-                var op = iter.Current.Type;
+                var op = Current.Type;
                 if (!iter.MoveNext())
                 {
                     break;
@@ -67,9 +78,9 @@ namespace Laciexpr
         {
             // term = <factor> (("*"|"/") <factor>)*
             var node = ReadFactor();
-            while (iter.Current.Type == TokenType.Asterisk || iter.Current.Type == TokenType.Slash)
+            while (Current.Type == TokenType.Asterisk || Current.Type == TokenType.Slash)
             {
-                var op = iter.Current.Type;
+                var op = Current.Type;
                 if (!iter.MoveNext())
                 {
                     break;
@@ -90,7 +101,7 @@ namespace Laciexpr
         private Node ReadFactor()
         {
             // factor = number | "(" <expr> ")"
-            switch (iter.Current.Type)
+            switch (Current.Type)
             {
                 case TokenType.Plus:
                     {
@@ -112,7 +123,7 @@ namespace Laciexpr
                     {
                         iter.MoveNext();
                         var node = ReadExpression();
-                        if (iter.Current.Type != TokenType.RightParen)
+                        if (Current.Type != TokenType.RightParen)
                         {
                             throw new InvalidOperationException("Unbalanced parenthesis");
                         }
