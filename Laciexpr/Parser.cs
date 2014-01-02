@@ -32,8 +32,6 @@ namespace Laciexpr
                 iter.MoveNext();
                 var parser = new Parser(iter);
                 root = parser.ReadExpression();
-                if (parser.Current.Type != TokenType.EndOfLine)
-                    throw new InvalidOperationException("Expects end of line.");
             }
             return root;
         }
@@ -59,10 +57,7 @@ namespace Laciexpr
             while (Current.Type == TokenType.Plus || Current.Type == TokenType.Minus)
             {
                 var op = Current.Type;
-                if (!iter.MoveNext())
-                {
-                    break;
-                }
+                iter.MoveNext();
                 var right = ReadTerm();
                 if (op == TokenType.Plus)
                 {
@@ -83,10 +78,7 @@ namespace Laciexpr
             while (Current.Type == TokenType.Asterisk || Current.Type == TokenType.Slash)
             {
                 var op = Current.Type;
-                if (!iter.MoveNext())
-                {
-                    break;
-                }
+                iter.MoveNext();
                 var right = ReadFactor();
                 if (op == TokenType.Asterisk)
                 {
