@@ -25,7 +25,8 @@ namespace Laciexpr
                 throw new ArgumentNullException("Tokens must be given.");
 
             this.iter = iter;
-            iter.MoveNext();    // set to the first position.
+            if (!iter.MoveNext())
+                throw new ArgumentException("A collection for the tokens must have some tokens.");
         }
 
         public static Node Parse(IEnumerable<Token> tokens)
@@ -48,7 +49,9 @@ namespace Laciexpr
             while (Current.Type == TokenType.Plus || Current.Type == TokenType.Minus)
             {
                 var op = Current.Type;
-                iter.MoveNext();
+                if (!iter.MoveNext())
+                    throw new Exception("Syntax Error (An operator (for an expression) must have an operand.)");
+
                 var right = ReadTerm();
                 if (op == TokenType.Plus)
                 {
@@ -71,7 +74,9 @@ namespace Laciexpr
             while (Current.Type == TokenType.Asterisk || Current.Type == TokenType.Slash)
             {
                 var op = Current.Type;
-                iter.MoveNext();
+                if (!iter.MoveNext())
+                    throw new Exception("Syntax Error (An operator (for a term) must have an operand.)");
+
                 var right = ReadFactor();
                 if (op == TokenType.Asterisk)
                 {
@@ -92,12 +97,14 @@ namespace Laciexpr
             {
                 case TokenType.Plus:
                     {
-                        iter.MoveNext();
+                        if (!iter.MoveNext())
+                            throw new Exception("Syntax Error (An unary operator \"+\" must have an operand.)");
                         return new PositiveNode(ReadFactor());
                     }
                 case TokenType.Minus:
                     {
-                        iter.MoveNext();
+                        if (!iter.MoveNext())
+                            throw new Exception("Syntax Error (An unary operator \"-\" must have an operand.)");
                         return new NegativeNode(ReadFactor());
                     }
                 case TokenType.Number:
@@ -108,11 +115,12 @@ namespace Laciexpr
                     }
                 case TokenType.LeftParen:
                     {
-                        iter.MoveNext();
+                        if (!iter.MoveNext())
+                            throw new Exception("Syntax Error (Unbalanced parenthesis.)");
                         var node = ReadExpression();
                         if (Current.Type != TokenType.RightParen)
                         {
-                            throw new InvalidOperationException("Unbalanced parenthesis");
+                            throw new Exception("Syntax Error (Unbalanced parenthesis.)");
                         }
                         iter.MoveNext();
                         return node;
