@@ -21,7 +21,11 @@ namespace Laciexpr
 
         private Parser(IEnumerator<Token> iter)
         {
+            if (iter == null)
+                throw new ArgumentNullException("Tokens must be given.");
+
             this.iter = iter;
+            iter.MoveNext();    // set to the first position.
         }
 
         public static Node Parse(IEnumerable<Token> tokens)
@@ -29,7 +33,6 @@ namespace Laciexpr
             Node root = null;
             using (var iter = tokens.GetEnumerator())
             {
-                iter.MoveNext();
                 var parser = new Parser(iter);
                 root = parser.ReadExpression();
             }
@@ -99,7 +102,7 @@ namespace Laciexpr
                     }
                 case TokenType.Number:
                     {
-                        var node = new NumberNode(iter.Current.Value); 
+                        var node = new NumberNode(iter.Current.Value);
                         iter.MoveNext();
                         return node;
                     }
