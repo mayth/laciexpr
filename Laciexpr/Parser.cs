@@ -38,22 +38,10 @@ namespace Laciexpr
 
         private Node ReadExpression()
         {
-            Node node;
-            // expr = ("+"|"-")? <term> (("+"|"-") <term>)*
-            switch (Current.Type)
-            {
-                case TokenType.Plus:
-                    iter.MoveNext();
-                    node = new PositiveNode(ReadTerm());
-                    break;
-                case TokenType.Minus:
-                    iter.MoveNext();
-                    node = new NegativeNode(ReadTerm());
-                    break;
-                default:
-                    node = ReadTerm();
-                    break;
-            }
+            // expr = <expr> ("+"|"-") <term>
+            // -> expr  = <term> <expr'>
+            //    expr' = ("+"|"-") <term> <expr'> | e
+            var node = ReadTerm();
             while (Current.Type == TokenType.Plus || Current.Type == TokenType.Minus)
             {
                 var op = Current.Type;
@@ -73,7 +61,9 @@ namespace Laciexpr
 
         private Node ReadTerm()
         {
-            // term = <factor> (("*"|"/") <factor>)*
+            // term = <term> ("*"|"/") <factor>
+            // -> term  = <factor> <term'>
+            //    term' = ("*"|"/") <factor> <term'> | e
             var node = ReadFactor();
             while (Current.Type == TokenType.Asterisk || Current.Type == TokenType.Slash)
             {
@@ -94,22 +84,22 @@ namespace Laciexpr
 
         private Node ReadFactor()
         {
-            // factor = number | "(" <expr> ")"
+            // factor = number | ("-"|"+") <factor> | "(" <expr> ")"
             switch (Current.Type)
             {
                 case TokenType.Plus:
                     {
                         iter.MoveNext();
-                        return new PositiveNode(ReadExpression());
+                        return new PositiveNode(ReadFactor());
                     }
                 case TokenType.Minus:
                     {
                         iter.MoveNext();
-                        return new NegativeNode(ReadExpression());
+                        return new NegativeNode(ReadFactor());
                     }
                 case TokenType.Number:
                     {
-                        var node = new NumberNode(iter.Current.Value);
+                        var node = new NumberNode(iter.Current.Value); 
                         iter.MoveNext();
                         return node;
                     }
