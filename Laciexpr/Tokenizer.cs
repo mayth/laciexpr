@@ -26,6 +26,7 @@ namespace Laciexpr
                     yield return ToToken(c);
                 }
             }
+            yield return new Token(TokenType.EndOfLine);
         }
 
         static int ReadNumber(TextReader reader, int initial)

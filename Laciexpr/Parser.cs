@@ -32,6 +32,8 @@ namespace Laciexpr
                 iter.MoveNext();
                 var parser = new Parser(iter);
                 root = parser.ReadExpression();
+                if (parser.Current.Type != TokenType.EndOfLine)
+                    throw new InvalidOperationException("Expects end of line.");
             }
             return root;
         }
